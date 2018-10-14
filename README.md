@@ -1,7 +1,7 @@
 
 ![Github All Releases](https://img.shields.io/github/downloads/onewe/RedisDesktopManager-Mac/total.svg)
 [![GitHub stars](https://img.shields.io/github/stars/onewe/RedisDesktopManager-Mac.svg)](https://github.com/onewe/RedisDesktopManager-Mac/stargazers)
-https://img.shields.io/github/release/onewe/RedisDesktopManager-Mac.svg
+![GitHub release](https://img.shields.io/github/release/onewe/RedisDesktopManager-Mac.svg)
 
 > 遇到问题,请给我留言,大家一起探讨.如果解决了您的问题,不妨点个star再走.O(∩_∩)O~
 
