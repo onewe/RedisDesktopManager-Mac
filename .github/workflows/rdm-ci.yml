@@ -26,6 +26,11 @@ jobs:
         path: rdm
         submodules: true
         ref: 2020
+    # install python3  
+    - name: install Python3
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
     # install QT   
     - name: install QT
       uses: jurplel/install-qt-action@v2
@@ -44,7 +49,8 @@ jobs:
         touch $GITHUB_WORKSPACE/rdm/bin/osx/release/setup.cfg
         cd $GITHUB_WORKSPACE/rdm/bin/osx/release/
         echo '[install]\nprefix=' > setup.cfg
-        pip3 install -t ./ -r ../../../src/py/requirements.txt  --upgrade
+        python -m pip install --upgrade pip
+        pip install -t ./ -r ../../../src/py/requirements.txt  --upgrade
         cd $GITHUB_WORKSPACE/rdm/src
         qmake CONFIG-=debug CONFIG+=sdk_no_version_check
         make -s -j 8
