@@ -42,7 +42,6 @@ jobs:
       uses: jurplel/install-qt-action@v2
       with: 
         modules: 'qtcharts'
-        cached: true
     # Runs a single command using the runners shell
     - name: build
       run: |
