@@ -34,7 +34,7 @@ jobs:
     # Runs a single command using the runners shell
     - name: build
       run: |
-        cd rdm
+        cd rdm/src/resources/
         ls -hal
         
       
