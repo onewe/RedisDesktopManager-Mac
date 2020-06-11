@@ -31,10 +31,24 @@ jobs:
       uses: jurplel/install-qt-action@v2
       with: 
         modules: 'qtcharts'
+        cached: true
     # Runs a single command using the runners shell
     - name: build
       run: |
         cd rdm/src/resources/
-        ls -hal
+        cp Info.plist.sample Info.plist
+        sed -i '.back' 's/0.0.0/2020.0/g' Info.plist
+        cd $GITHUB_WORKSPACE/rdm/src
+        sed -i '.back' 's/^\(\s*\)VERSION=.*/\1VERSION=2020.0/g' rdm.pro
+        mkdir -p $GITHUB_WORKSPACE/rdm/bin/osx/release
+        touch $GITHUB_WORKSPACE/rdm/bin/osx/release/setup.cfg
+        cd $GITHUB_WORKSPACE/rdm/bin/osx/release/
+        echo '[install]\nprefix=' > setup.cfg
+        pip3 install -t ./ -r ../../../src/py/requirements.txt  --upgrade
+        cd $GITHUB_WORKSPACE/rdm/src
+        qmake CONFIG-=debug CONFIG+=sdk_no_version_check
+        make -s -j 8
+        cd $GITHUB_WORKSPACE/rdm/bin/osx/release
+        macdeployqt Redis\ Desktop\ Manager.app -qmldir=../../../src/qml
         
       
