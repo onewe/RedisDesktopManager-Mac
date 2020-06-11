@@ -33,4 +33,4 @@ jobs:
         modules: 'qtcharts'
     # Runs a single command using the runners shell
     - name: build
-      run: echo Hello, world!
+      run: cd rdm && qmake -v
