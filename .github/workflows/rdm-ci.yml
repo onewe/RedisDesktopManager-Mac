@@ -37,6 +37,11 @@ jobs:
       with:
         requirements: rdm/src/py/requirements.txt
         upgrade: true
+    # install xcode
+    - name: install xcode
+      uses: sinoru/actions-setup-xcode@v1.1
+      with:
+        xcode-version: '11.2.1'    
     # install QT   
     - name: install QT
       uses: jurplel/install-qt-action@v2
