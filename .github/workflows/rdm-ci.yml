@@ -50,6 +50,7 @@ jobs:
     # Runs a single command using the runners shell
     - name: build
       run: |
+        sudo xcode-select -s /Applications/Xcode_10.3.app/Contents/Developer
         cd rdm/src/resources/
         cp Info.plist.sample Info.plist
         sed -i '.back' 's/0.0.0/2020.0/g' Info.plist
