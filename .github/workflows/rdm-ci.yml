@@ -89,4 +89,5 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: $GITHUB_WORKSPACE/rdm/bin/osx/release/rdm.dmg
         asset_name: rdm.dmg
+        asset_content_type: application/dmg
         
