@@ -24,7 +24,7 @@ jobs:
       with:
         repository: uglide/RedisDesktopManager
         path: rdm
-        submodules: true
+        submodules: 'recursive'
         ref: 2020
     # install python3  
     - name: install Python3
