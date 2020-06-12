@@ -15,7 +15,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: 	macos-latest
+    runs-on: 	macos-10.12.6
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -38,10 +38,10 @@ jobs:
         requirements: rdm/src/py/requirements.txt
         upgrade: true
     # install xcode
-    - name: install xcode
-      uses: sinoru/actions-setup-xcode@v1.1
-      with:
-        xcode-version: '10.0'    
+    #- name: install xcode
+    #  uses: sinoru/actions-setup-xcode@v1.1
+    #  with:
+    #    xcode-version: '10.0'    
     # install QT   
     - name: install QT
       uses: jurplel/install-qt-action@v2
