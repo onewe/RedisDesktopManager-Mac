@@ -62,7 +62,7 @@ jobs:
         cd $GITHUB_WORKSPACE/rdm/bin/osx/release/
         echo '[install]\nprefix=' > setup.cfg
         cd $GITHUB_WORKSPACE/rdm/src
-        sed -i '.back' 's/initUpdater();/#initUpdater();/g' ./app/app.cpp
+        sed -i '.back' 's/initUpdater();/\/\/initUpdater();/g' ./app/app.cpp
         qmake CONFIG-=debug CONFIG+=sdk_no_version_check
         make -s -j 8
         cd $GITHUB_WORKSPACE/rdm/bin/osx/release
