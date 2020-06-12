@@ -44,9 +44,10 @@ jobs:
     #    xcode-version: '10.0'    
     # install QT   
     - name: install QT
-      uses: jurplel/install-qt-action@v2
+      uses: jurplel/install-qt-action@v2.6.3
       with: 
         modules: 'qtcharts'
+        version: '5.13.2'
     # Runs a single command using the runners shell
     - name: build
       run: |
