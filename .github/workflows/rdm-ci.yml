@@ -51,7 +51,7 @@ jobs:
     # Runs a single command using the runners shell
     - name: build
       run: |
-        mkdir -p $GITHUB_WORKSPACE/rdm/bin/osx/release && python -m pip install -t $GITHUB_WORKSPACE/rdm/bin/osx/release --requirement $GITHUB_WORKSPACE/rdm/src/py/requirements.txt --upgrade
+        mkdir -p $GITHUB_WORKSPACE/rdm/bin/osx/release && python -m pip install --requirement $GITHUB_WORKSPACE/rdm/src/py/requirements.txt --target $GITHUB_WORKSPACE/rdm/bin/osx/release --upgrade
         sudo xcode-select -s /Applications/Xcode_10.3.app/Contents/Developer
         cd rdm/src/resources/
         cp Info.plist.sample Info.plist
