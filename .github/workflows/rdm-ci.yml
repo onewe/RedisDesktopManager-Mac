@@ -20,78 +20,21 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2.2.0
-      with:
-        repository: uglide/RedisDesktopManager
-        path: rdm
-        submodules: 'recursive'
-        ref: 2020.1
-    # pip install 
-    #- name: pip install
-    #  uses: BSFishy/pip-action@v1
-    #  with:
-    #    requirements: rdm/src/py/requirements.txt
-    #    upgrade: true
-    # install xcode
-    #- name: install xcode
-    #  uses: sinoru/actions-setup-xcode@v1.1
-    #  with:
-    #    xcode-version: '10.0'    
-    # install QT   
-    - name: install QT
-      uses: jurplel/install-qt-action@v2.6.3
-      with: 
-        modules: 'qtcharts'
-        version: '5.12.6'
-     # install python3  
-    - name: install Python3
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: install dependency
-      run: |
-        set -x
-        cd rdm
-        mkdir -p ./bin/osx/release
-        cd bin/osx/release/
-        echo -e '[install]\nprefix=' >> setup.cfg
-        pip3 install -r ../../../src/py/requirements.txt -t ./
-    - name: build
-      run: |
-        sudo xcode-select -s /Applications/Xcode_10.3.app/Contents/Developer
-        cd rdm/src/resources/
-        cp Info.plist.sample Info.plist
-        sed -i '.back' 's/0.0.0/2020.1/g' Info.plist
-        cd $GITHUB_WORKSPACE/rdm/src
-        sed -i '.back' 's/^\(\s*\)VERSION=.*/\1VERSION=2020.1/g' rdm.pro
-        cd $GITHUB_WORKSPACE/rdm/src
-        sed -i '.back' 's/initUpdater();/\/\/initUpdater();/g' ./app/app.cpp
-        qmake CONFIG-=debug CONFIG+=sdk_no_version_check
-        make -s -j 8
-        cd $GITHUB_WORKSPACE/rdm/bin/osx/release
-        macdeployqt Redis\ Desktop\ Manager.app -qmldir=../../../src/qml
-        macdeployqt Redis\ Desktop\ Manager.app -qmldir=../../../src/qml -dmg
-        mv Redis\ Desktop\ Manager.dmg rdm.dmg
-    - name: create release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-      with:
-        tag_name: 'v2020.1-fix'
-        release_name: 'v2020.1-ci-fix'  
-        body: |
-          V2020.1-CI-fix
-          - fix python3 denpendency
-        draft: false
-        prerelease: false
-    - name: upload a release Asset
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./rdm/bin/osx/release/rdm.dmg
-        asset_name: rdm.dmg
-        asset_content_type: application/dmg
-        
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2.0.0
+        with:
+          version: 5.12.6
+      - name: Clone repo
+        run: |
+          git clone --recursive https://github.com/uglide/RedisDesktopManager.git -b 2020.1 rdm 
+      - name: Install requirements
+        run: |
+          set -x
+          cd rdm
+          mkdir -p ./bin/osx/release
+          cd bin/osx/release
+          echo -e '[install]\nprefix=' >> setup.cfg
+          pip3 install -t ./ -r ../../../src/py/requirements.txt --upgrade
