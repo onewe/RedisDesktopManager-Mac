@@ -51,14 +51,13 @@ jobs:
     # Runs a single command using the runners shell
     - name: build
       run: |
+        mkdir -p $GITHUB_WORKSPACE/rdm/bin/osx/release && python -m pip install -t $GITHUB_WORKSPACE/rdm/bin/osx/release --requirement $GITHUB_WORKSPACE/rdm/src/py/requirements.txt --upgrade
         sudo xcode-select -s /Applications/Xcode_10.3.app/Contents/Developer
         cd rdm/src/resources/
         cp Info.plist.sample Info.plist
         sed -i '.back' 's/0.0.0/2020.1/g' Info.plist
         cd $GITHUB_WORKSPACE/rdm/src
         sed -i '.back' 's/^\(\s*\)VERSION=.*/\1VERSION=2020.1/g' rdm.pro
-        mkdir -p $GITHUB_WORKSPACE/rdm/bin/osx/release
-        python -m pip install -t $GITHUB_WORKSPACE/rdm/bin/osx/release --requirement $GITHUB_WORKSPACE/rdm/src/py/requirements.txt --upgrade
         touch $GITHUB_WORKSPACE/rdm/bin/osx/release/setup.cfg
         cd $GITHUB_WORKSPACE/rdm/bin/osx/release/
         echo '[install]\nprefix=' > setup.cfg
