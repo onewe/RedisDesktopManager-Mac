@@ -55,7 +55,7 @@ jobs:
         mkdir -p ./bin/osx/release
         cd bin/osx/release/
         echo -e '[install]\nprefix=' >> setup.cfg
-        pip3 install -t ./ -r ../../../src/py/requirements.txt --upgrade
+        pip3 install -r ../../../src/py/requirements.txt -t ./
     - name: build
       run: |
         sudo xcode-select -s /Applications/Xcode_10.3.app/Contents/Developer
