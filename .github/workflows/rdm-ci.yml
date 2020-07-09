@@ -48,7 +48,14 @@ jobs:
       with: 
         modules: 'qtcharts'
         version: '5.13.2'
-    # Runs a single command using the runners shell
+    - name: install dependency
+      run: |
+        set -x
+        mkdir -p $GITHUB_WORKSPACE/rdm/bin/osx/release
+        touch $GITHUB_WORKSPACE/rdm/bin/osx/release/setup.cfg
+        cd $GITHUB_WORKSPACE/rdm/bin/osx/release/
+        echo '[install]\nprefix=' > setup.cfg
+        pip3 install -t ./ -r ../../../src/py/requirements.txt --upgrade
     - name: build
       run: |
         sudo xcode-select -s /Applications/Xcode_10.3.app/Contents/Developer
@@ -57,11 +64,6 @@ jobs:
         sed -i '.back' 's/0.0.0/2020.1/g' Info.plist
         cd $GITHUB_WORKSPACE/rdm/src
         sed -i '.back' 's/^\(\s*\)VERSION=.*/\1VERSION=2020.1/g' rdm.pro
-        mkdir -p $GITHUB_WORKSPACE/rdm/bin/osx/release
-        touch $GITHUB_WORKSPACE/rdm/bin/osx/release/setup.cfg
-        cd $GITHUB_WORKSPACE/rdm/bin/osx/release/
-        echo '[install]\nprefix=' > setup.cfg
-        pip3 install -t ./ -r ../../../src/py/requirements.txt --upgrade
         cd $GITHUB_WORKSPACE/rdm/src
         sed -i '.back' 's/initUpdater();/\/\/initUpdater();/g' ./app/app.cpp
         qmake CONFIG-=debug CONFIG+=sdk_no_version_check
