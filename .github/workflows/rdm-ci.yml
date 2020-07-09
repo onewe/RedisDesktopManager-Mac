@@ -32,11 +32,11 @@ jobs:
       with:
         python-version: '3.x'
     # pip install 
-    - name: pip install
-      uses: BSFishy/pip-action@v1
-      with:
-        requirements: rdm/src/py/requirements.txt
-        upgrade: true
+    #- name: pip install
+    #  uses: BSFishy/pip-action@v1
+    #  with:
+    #    requirements: rdm/src/py/requirements.txt
+    #    upgrade: true
     # install xcode
     #- name: install xcode
     #  uses: sinoru/actions-setup-xcode@v1.1
@@ -58,7 +58,7 @@ jobs:
         cd $GITHUB_WORKSPACE/rdm/src
         sed -i '.back' 's/^\(\s*\)VERSION=.*/\1VERSION=2020.1/g' rdm.pro
         mkdir -p $GITHUB_WORKSPACE/rdm/bin/osx/release
-        pip3 install -t $GITHUB_WORKSPACE/rdm/bin/osx/release -r $GITHUB_WORKSPACE/rdm/src/py/requirements.txt
+        python -m pip install -t $GITHUB_WORKSPACE/rdm/bin/osx/release --requirement $GITHUB_WORKSPACE/rdm/src/py/requirements.txt --upgrade
         touch $GITHUB_WORKSPACE/rdm/bin/osx/release/setup.cfg
         cd $GITHUB_WORKSPACE/rdm/bin/osx/release/
         echo '[install]\nprefix=' > setup.cfg
