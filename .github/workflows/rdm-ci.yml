@@ -51,10 +51,10 @@ jobs:
     - name: install dependency
       run: |
         set -x
-        mkdir -p $GITHUB_WORKSPACE/rdm/bin/osx/release
-        touch $GITHUB_WORKSPACE/rdm/bin/osx/release/setup.cfg
-        cd $GITHUB_WORKSPACE/rdm/bin/osx/release/
-        echo '[install]\nprefix=' > setup.cfg
+        cd rdm
+        mkdir -p ./bin/osx/release
+        cd bin/osx/release/
+        echo -e '[install]\nprefix=' >> setup.cfg
         pip3 install -t ./ -r ../../../src/py/requirements.txt --upgrade
     - name: build
       run: |
