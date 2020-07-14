@@ -15,4 +15,5 @@
 🐓
 🦃
 # Note
-写了个mac版本的action,有windows的同学来贡献一下嘛,一起玩一玩.
+windows 和 mac 两个版本 请 到这儿 去 https://github.com/FuckDoctors/rdm-builder
+Here https://github.com/FuckDoctors/rdm-builder , windows and mac version.
