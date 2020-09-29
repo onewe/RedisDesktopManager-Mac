@@ -8,7 +8,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-	
+
 env:
   RDM_REF: 2020.3
   VERSION: 2020.3.0
